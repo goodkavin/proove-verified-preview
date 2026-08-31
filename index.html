@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Proove Verified — ตัวอย่างหน้าเว็บ (ร่างเพื่อรีวิว)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5ECDC; --cream-2:#F0E4CF; --paper:#FDFAF3;
+  --green-950:#0E301D; --green-900:#123E26; --green-700:#1E6B40; --green-500:#2E9E5B;
+  --mint:#CDE7D2; --mint-soft:#E4F1E4;
+  --matcha:#7FA65A; --butter:#F5C84C; --butter-soft:#F9E9C9;
+  --coral:#E07A6E; --lilac:#B9AEE0;
+  --ink:#17301F; --ink-soft:#6E7D6F; --line:#E7DBC4;
+  --radius:20px; --radius-lg:32px;
+  --f-display:"Prompt","Noto Sans Thai",sans-serif;
+  --f-body:"Noto Sans Thai","Prompt",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;font-weight:600}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+.kicker{font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green-700)}
+
+/* ---------- reviewer bar ---------- */
+.draftbar{background:var(--butter);color:var(--green-950);font-size:12.5px;font-weight:600;text-align:center;padding:8px 14px;line-height:1.5}
+.draftbar b{font-weight:700}
+
+/* ---------- QR simulator ---------- */
+.simbar{background:var(--green-950);color:#DCEDDD;padding:12px 18px}
+.simbar .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--butter);font-weight:700;display:block;margin-bottom:7px}
+.simbar select{width:100%;font-family:inherit;font-size:14px;padding:10px 12px;border-radius:12px;border:1px solid rgba(220,237,221,.3);background:rgba(255,255,255,.07);color:#fff}
+.simbar select option{color:#17301F}
+.simbar .url{font-size:11.5px;color:rgba(220,237,221,.65);margin-top:7px;word-break:break-all;font-family:ui-monospace,monospace}
+
+/* ---------- hero ---------- */
+.hero{background:var(--green-900);color:#F6ECD8;position:relative;overflow:hidden}
+.hero .mark{position:absolute;right:-14px;bottom:-72px;font-family:var(--f-display);font-weight:700;font-size:190px;line-height:1;letter-spacing:-.06em;color:rgba(245,200,76,.10);pointer-events:none;user-select:none}
+.hero .inner{position:relative;z-index:1;padding:26px 18px 30px;max-width:640px;margin:0 auto}
+.hero .kicker{color:var(--butter);letter-spacing:.16em}
+.seal{display:inline-flex;align-items:center;gap:9px;background:rgba(205,231,210,.14);border:1px solid rgba(205,231,210,.32);border-radius:999px;padding:7px 15px 7px 9px;margin-bottom:14px}
+.seal .tick{width:22px;height:22px;border-radius:999px;background:var(--green-500);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.seal span{font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.hero h1{font-size:clamp(27px,7.6vw,38px);margin:10px 0 0;color:#F6ECD8}
+.hero .prod{margin-top:14px;padding:14px 16px;background:rgba(0,0,0,.18);border-radius:16px;border:1px solid rgba(205,231,210,.16)}
+.hero .prod .cap{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--butter);font-weight:700}
+.hero .prod .nm{font-family:var(--f-display);font-size:19px;font-weight:600;margin-top:3px}
+.hero .prod .sku{font-size:12px;color:rgba(246,236,216,.6);font-family:ui-monospace,monospace;margin-top:2px}
+.hero .lead{font-size:14.5px;color:rgba(246,236,216,.8);margin-top:14px}
+
+/* ---------- sections ---------- */
+section{padding:34px 0}
+section.tint{background:var(--paper)}
+.sec-head{margin-bottom:16px}
+.sec-head h2{font-size:22px;margin-top:5px}
+.sec-head p{font-size:14px;color:var(--ink-soft);margin-top:6px}
+
+/* ---------- evidence cards ---------- */
+.ev{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+.ev.miss{background:repeating-linear-gradient(135deg,#FBF6EA,#FBF6EA 10px,#F6EEDC 10px,#F6EEDC 20px);border-style:dashed}
+.ev-top{display:flex;align-items:flex-start;gap:12px;padding:16px}
+.ev-ico{flex:0 0 40px;height:40px;border-radius:12px;background:var(--mint-soft);display:grid;place-items:center;font-size:19px}
+.ev-ttl{font-family:var(--f-display);font-size:16.5px;font-weight:600;line-height:1.35}
+.ev-sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.res{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;margin-top:8px}
+.res.ok{background:var(--mint);color:var(--green-950)}
+.res.tbc{background:var(--butter-soft);color:#8A6A10;border:1px dashed #D8B45C}
+.res.none{background:#F4E3E0;color:#96453A}
+.ev-meta{padding:0 16px 14px;font-size:12.5px;color:var(--ink-soft)}
+.ev-meta dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin-top:4px}
+.ev-meta dt{color:#9AA79B}
+.ev-meta dd{color:var(--ink)}
+.ev-img{border-top:1px solid var(--line);background:#fff}
+.ev-img img{width:100%}
+.ev-open{display:block;width:100%;text-align:center;padding:13px;font-size:13.5px;font-weight:600;color:var(--green-700);border-top:1px solid var(--line);background:var(--mint-soft)}
+
+/* ---------- อย. slot ---------- */
+.fda{background:var(--green-950);color:#F6ECD8;border-radius:var(--radius);padding:20px 18px}
+.fda h3{font-size:18px;color:#F6ECD8}
+.fda .num{font-family:ui-monospace,monospace;font-size:19px;letter-spacing:.06em;color:var(--butter);margin-top:10px;padding:12px;border:1px dashed rgba(245,200,76,.45);border-radius:12px;text-align:center}
+.fda p{font-size:13px;color:rgba(246,236,216,.72);margin-top:11px}
+
+/* ---------- badges ---------- */
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600}
+
+/* ---------- explainer ---------- */
+.acc{border:1px solid var(--line);border-radius:16px;background:var(--paper);margin-bottom:9px;overflow:hidden}
+.acc summary{padding:14px 16px;font-weight:600;font-size:14.5px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-family:var(--f-display);font-size:19px;color:var(--green-700)}
+.acc[open] summary::after{content:"−"}
+.acc .body{padding:0 16px 16px;font-size:14px;color:var(--ink-soft)}
+
+/* ---------- labs ---------- */
+.lab{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin-bottom:10px}
+.lab .nm{font-family:var(--f-display);font-weight:600;font-size:15.5px}
+.lab .acc2{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+.lab ul{margin:9px 0 0 17px;font-size:13px;color:var(--ink-soft)}
+
+/* ---------- all results ---------- */
+.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;-webkit-overflow-scrolling:touch}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.chip.on{background:var(--green-900);color:var(--mint);border-color:var(--green-900)}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.gal figure{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.gal figcaption{font-size:11.5px;padding:8px 10px;color:var(--ink-soft);line-height:1.45}
+
+/* ---------- footer ---------- */
+footer{background:var(--green-950);color:rgba(246,236,216,.75);padding:28px 0 90px;font-size:13px}
+footer .cta{display:block;background:var(--butter);color:var(--green-950);text-align:center;font-weight:700;padding:14px;border-radius:999px;text-decoration:none;margin-bottom:18px}
+footer a.txt{color:var(--butter)}
+
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;background:rgba(14,48,29,.94);z-index:200;display:none;overflow:auto;padding:52px 12px 24px}
+.lb.on{display:block}
+.lb img{margin:0 auto;max-width:760px;border-radius:12px}
+.lb .x{position:fixed;top:10px;right:12px;width:40px;height:40px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:20px}
+.lb .cap{color:rgba(246,236,216,.8);text-align:center;font-size:13px;max-width:760px;margin:12px auto 0}
+
+/* ---------- comment layer ---------- */
+.cbtn{position:fixed;right:14px;bottom:14px;z-index:150;background:var(--green-900);color:var(--butter);border-radius:999px;padding:13px 19px;font-weight:700;font-size:14px;box-shadow:0 10px 26px rgba(14,48,29,.4);display:flex;align-items:center;gap:8px}
+.cbtn .n{background:var(--butter);color:var(--green-950);border-radius:999px;min-width:20px;height:20px;font-size:12px;display:grid;place-items:center;padding:0 5px}
+body.cmode .anchor{outline:2px dashed rgba(224,122,110,.75);outline-offset:6px;border-radius:10px;position:relative;cursor:pointer}
+body.cmode .anchor::after{content:"＋ คอมเมนต์";position:absolute;top:-11px;left:8px;background:var(--coral);color:#fff;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;font-family:var(--f-body)}
+.anchor.has{outline-color:var(--green-500)}
+.panel{position:fixed;inset:auto 0 0 0;z-index:180;background:var(--paper);border-radius:22px 22px 0 0;box-shadow:0 -14px 40px rgba(14,48,29,.28);max-height:82vh;overflow:auto;transform:translateY(102%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+.panel.on{transform:none}
+.panel .ph{position:sticky;top:0;background:var(--paper);padding:16px 18px 10px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.panel .ph h3{font-size:17px}
+.panel .pb{padding:14px 18px 22px}
+.note{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:#fff}
+.note .where{font-size:11.5px;font-weight:700;color:var(--green-700);text-transform:uppercase;letter-spacing:.08em}
+.note .txt{font-size:14px;margin-top:4px;white-space:pre-wrap}
+.note .del{font-size:12px;color:var(--coral);margin-top:6px;font-weight:600}
+.panel textarea{width:100%;font-family:inherit;font-size:15px;padding:12px;border:1px solid var(--line);border-radius:14px;min-height:104px;background:#fff;color:var(--ink)}
+.pbtn{display:block;width:100%;text-align:center;padding:13px;border-radius:999px;font-weight:700;font-size:14.5px;margin-top:9px}
+.pbtn.pri{background:var(--green-700);color:#fff}
+.pbtn.sec{background:var(--mint-soft);color:var(--green-900)}
+.pbtn.ghost{background:none;color:var(--ink-soft);font-weight:600}
+.empty{text-align:center;color:var(--ink-soft);font-size:14px;padding:22px 0}
+
+@media(min-width:700px){
+  body{font-size:16px}
+  .gal{grid-template-columns:repeat(3,1fr)}
+  .hero .inner{padding:40px 18px 44px}
+  section{padding:46px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="draftbar">
+  🔍 <b>ร่างเพื่อรีวิวเท่านั้น</b> — ยังไม่ใช่หน้าเว็บจริง · กดปุ่ม <b>คอมเมนต์</b> มุมขวาล่างเพื่อฝากความเห็นได้ทุกจุด
+</div>
+
+<div class="simbar">
+  <label class="lbl" for="sim">จำลองการสแกน QR — เลือกสินค้า</label>
+  <select id="sim"></select>
+  <div class="url" id="simurl"></div>
+</div>
+
+<header class="hero">
+  <span class="mark" aria-hidden="true">oo</span>
+  <div class="inner">
+    <div class="seal"><span class="tick">✓</span><span>PROOVE VERIFIED</span></div>
+    <span class="kicker">ตรวจสอบฉลากสินค้าชิ้นนี้</span>
+    <h1 id="heroTitle">เราไม่สัญญา<br>เราพิสูจน์</h1>
+    <div class="prod" id="prodBox">
+      <div class="cap">สินค้าที่คุณสแกน</div>
+      <div class="nm" id="prodName">—</div>
+      <div class="sku" id="prodSku">—</div>
+    </div>
+    <p class="lead">ทุกตัวเลขบนฉลากของ Proove ตรวจสอบได้ด้วยผลแล็บจากห้องปฏิบัติการอิสระที่ได้รับการรับรอง ISO/IEC 17025</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head anchor" data-a="evidence-head">
+      <span class="kicker">ผลตรวจของสินค้าชิ้นนี้</span>
+      <h2>หลักฐานที่ยืนยันฉลาก</h2>
+      <p>ผลตรวจที่ครอบคลุมรสชาตินี้โดยเฉพาะ</p>
+    </div>
+    <div id="evidence"></div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="anchor" data-a="fda">
+      <div class="fda">
+        <span class="kicker" style="color:var(--butter)">อย. REGISTERED</span>
+        <h3 style="margin-top:6px">เลขจดแจ้ง อย.</h3>
+        <div class="num" id="fdaNum">รอเลขจดแจ้งจากทีม R&amp;D</div>
+        <p>เลขจดแจ้ง อย. ต่อ SKU ยังไม่ได้เผยแพร่บนเว็บไซต์ ณ วันนี้ — เป็นข้อมูลที่ผู้บริโภคไทยคาดหวังมากที่สุดเมื่อสแกน QR “Verified” ต้องขอจาก R&amp;D ก่อนขึ้นจริง</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head anchor" data-a="labs">
+      <span class="kicker">ห้องแล็บที่ตรวจ</span>
+      <h2>ใครเป็นคนตรวจ</h2>
+      <p>ห้องปฏิบัติการอิสระ ไม่ใช่ห้องแล็บของโรงงานเราเอง</p>
+    </div>
+    <div class="lab">
+      <div class="nm">CHEMLAB Services (Thailand)</div>
+      <div class="acc2">ISO/IEC 17025 · ทะเบียนเลขที่ 103047</div>
+      <ul>
+        <li>โลหะหนัก — สารหนู ตะกั่ว ปรอท แคดเมียม (พร้อมค่า LOD/LOQ)</li>
+        <li>วิธีอ้างอิง AOAC 2023 · เกณฑ์ประกาศกระทรวงสาธารณสุข ฉบับที่ 414 (พ.ศ. 2563)</li>
+        <li>กรดอะมิโน 20 ชนิด (mg/100g)</li>
+      </ul>
+    </div>
+    <div class="lab">
+      <div class="nm">AMARC</div>
+      <div class="acc2">Asia Medical and Agricultural Laboratory and Research Center · ISO/IEC 17025 · ทะเบียนเลขที่ 1126/50</div>
+      <ul>
+        <li>โลหะหนัก + จุลินทรีย์ก่อโรค</li>
+        <li>Clostridium · E. coli · S. aureus · Salmonella</li>
+        <li>วิธีอ้างอิง USP 44/NF 39 · FDA-BAM · ISO 6888-1 · ISO 6579-1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="sec-head anchor" data-a="explain">
+      <span class="kicker">ทำไมต้องพิสูจน์</span>
+      <h2>“โปรตีนตกฉลาก” คืออะไร</h2>
+    </div>
+    <details class="acc" open>
+      <summary>โปรตีนตกฉลาก แปลว่าอะไร</summary>
+      <div class="body">คือสินค้าที่ระบุปริมาณโปรตีนบนฉลากสูงกว่าที่มีอยู่จริง ผู้บริโภคจ่ายเงินซื้อโปรตีน แต่ได้ไม่ครบตามที่ฉลากบอก — ตรวจได้ด้วยการส่งวิเคราะห์ที่ห้องแล็บอิสระเท่านั้น</div>
+    </details>
+    <details class="acc">
+      <summary>อ่านผลตรวจอย่างไรให้เข้าใจ</summary>
+      <div class="body">ดู 3 อย่าง — (1) ชื่อห้องแล็บและเลขรับรอง ISO/IEC 17025 (2) วันที่ตรวจ และรุ่นการผลิตที่ตรวจ (3) ค่าที่วัดได้เทียบกับเกณฑ์มาตรฐาน ถ้ารายงานไม่มีสามอย่างนี้ ให้ถามต่อ</div>
+    </details>
+    <details class="acc">
+      <summary>“ตรวจไม่พบ” ต่างจาก “ไม่มี” อย่างไร</summary>
+      <div class="body">“ตรวจไม่พบ” (Not Detected) หมายถึงต่ำกว่าค่าที่เครื่องมือวัดได้ (LOD) ซึ่งเป็นมาตรฐานที่ห้องแล็บทั่วโลกใช้รายงาน ไม่ใช่การเลี่ยงคำตอบ</div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head anchor" data-a="all">
+      <span class="kicker">คลังผลตรวจ</span>
+      <h2>ผลตรวจทั้งหมด</h2>
+      <p>ผลตรวจทุกฉบับที่ Proove เผยแพร่ แยกตามประเภทการตรวจ</p>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="anchor" data-a="badges">
+      <span class="kicker">มาตรฐานการผลิต</span>
+      <h2 style="font-size:22px;margin:5px 0 14px">ผลิตอย่างไร</h2>
+      <div class="badges">
+        <span class="badge">GMP</span>
+        <span class="badge">Certified Non-GMO</span>
+        <span class="badge">น้ำตาล 0%</span>
+        <span class="badge">ปราศจากกลูเตน</span>
+        <span class="badge">💚 Recyclable</span>
+      </div>
+      <p style="font-size:14px;color:var(--ink-soft);margin-top:14px">พัฒนาสูตรโดยนักวิทยาศาสตร์อาหารระดับ Ph.D. ผลิตในโรงงานมาตรฐาน GMP และใส่ใจ Mind-Body-Planet ด้วยบรรจุภัณฑ์รีไซเคิลได้</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="cta" href="#" onclick="return false">ดูสินค้าทั้งหมด</a>
+    <p><b style="color:#F6ECD8">We don't promise, we Proove.</b></p>
+    <p style="margin-top:10px">ขอบคุณที่รักตัวเอง</p>
+    <p style="margin-top:14px;font-size:11.5px;opacity:.6">หน้านี้เป็นตัวอย่างสำหรับรีวิวภายใน ไม่ใช่หน้าเว็บที่เผยแพร่จริง · จัดทำโดย Void Engineering</p>
+  </div>
+</footer>
+
+<button class="cbtn" id="cbtn">💬 คอมเมนต์ <span class="n" id="cn">0</span></button>
+
+<div class="panel" id="panel">
+  <div class="ph">
+    <h3 id="panelTitle">ความเห็นทั้งหมด</h3>
+    <button class="pbtn ghost" style="width:auto;margin:0;padding:6px 10px" id="panelClose">ปิด</button>
+  </div>
+  <div class="pb" id="panelBody"></div>
+</div>
+
+<div class="lb" id="lb"><button class="x" id="lbx">✕</button><img id="lbimg" alt=""><div class="cap" id="lbcap"></div></div>
+
+<script>
+/* ============================================================
+   Proove Verified — landing page prototype
+   Data is REAL: every lab image below is a live prooveclub.com
+   Shopify CDN asset, pulled from the 5 verification articles.
+   Nothing here is invented. Unknowns are shown as "ต้องยืนยัน".
+   ============================================================ */
+
+var CDN = "https://cdn.shopify.com/s/files/1/0746/5946/3457/files/";
+
+/* the five source articles */
+var SRC = {
+  flagship: {t:"Proove ใส่จริง ตรงฉลาก พิสูจน์ได้", d:"2025-09-18", url:"https://prooveclub.com/blogs/news/we-dont-promise-we-proove-เราไม่แค่บอก-แต่เรา-พูดจริง-ใส่จริง-ตรวจสอบได้จริง"},
+  heavy:    {t:"Proove โปรตีนพืชที่ปลอดภัย ไร้สารตะกั่ว", d:"2025-11-27", url:"https://prooveclub.com/blogs/news/proove-โปรตีนพืชที่ปลอดภัย-ไร้สารตะกั่ว-ตรวจสอบได้จริง"},
+  micro:    {t:"Proove ปลอดภัย พิสูจน์ได้ ไร้เชื้อจุลินทรีย์ก่อโรค", d:"2026-03-17", url:"https://prooveclub.com/blogs/news/proove-ปลอดภัย-พิสูจน์ได้-ไร้เชื้อจุลินทรีย์ก่อโรค-ตรวจสอบได้จริง"},
+  creatine: {t:"Proove Creatine+ ครีเอทีนตรงฉลาก", d:"2026-07-17", url:"https://prooveclub.com/blogs/news/proove-creatine-ครีเอทีนตรงฉลาก-ไร้จุลิทนรีย์และโลหะหนัก-มีผลตรวจรองรับ"},
+  clear:    {t:"Proove Clear Protein Creatine+ NO Amino Spiking", d:"2026-08-20", url:"https://prooveclub.com/blogs/news/proove-clear-protein-creatineplus"}
+};
+
+/* test types */
+var TEST = {
+  label: {ico:"🏷️", ttl:"โปรตีนตรงฉลาก",        sub:"ปริมาณโปรตีนที่วัดได้ เทียบกับที่ระบุบนฉลาก", res:"ตรงตามฉลาก"},
+  heavy: {ico:"🧪", ttl:"ไร้โลหะหนัก",           sub:"สารหนู · ตะกั่ว · ปรอท · แคดเมียม",        res:"ตรวจไม่พบ"},
+  micro: {ico:"🦠", ttl:"ไร้จุลินทรีย์ก่อโรค",   sub:"Clostridium · E. coli · S. aureus · Salmonella", res:"ตรวจไม่พบ"},
+  amino: {ico:"🔬", ttl:"กรดอะมิโนครบ ไม่มี Amino Spiking", sub:"โปรไฟล์กรดอะมิโน 20 ชนิด", res:"ครบตามโปรไฟล์"}
+};
+
+/* products keyed on the printed QR code (see qr-redirect-registry.md) */
+var P = [
+ {c:"pr-oo",  n:"ออริจินอล โอ๊ต",              sku:"PR-1TUB/1CASE-OO",  ev:{label:"original_oat.png?v=1773744846", heavy:"original-oat.png?v=1764236890"}},
+ {c:"pr-on",  n:"ออริจินอล (Nut-free)",         sku:"PR-1TUB/1CASE-ON",  ev:{label:"allergen.png?v=1773744847", heavy:"original-allergen.png?v=1764236874", micro:"allergen.png?v=1773744847"}},
+ {c:"pr-mc",  n:"มัทฉะพรีเมียม",                sku:"PR-1TUB/1CASE-MC",  ev:{label:"matcha_3b81e17c-77a2-4413-92d3-df56eaa9f2c9.png?v=1773744846", micro:"matcha_3b976900-d452-4838-80a8-640d9aad143e.png?v=1773745403"}},
+ {c:"pr-cm",  n:"ช็อกโกแลตมอลต์",               sku:"PR-1TUB/1CASE-CM",  ev:{label:"choc_malt.png?v=1773744847"}},
+ {c:"pr-cc",  n:"พรีเมียมคาเคา",                sku:"PR-1TUB-CC",        ev:{label:"cacao_429a9711-6f4b-4152-b6b8-d3484e6bc0c7.png?v=1773744846"}},
+ {c:"pr-c",   n:"ดาร์กช็อกโกแลต",               sku:"PR-1TUB-C",         ev:{micro:"dark_choc.png?v=1773745403"}},
+ {c:"pr-mb",  n:"มิกซ์เบอร์รี่",                sku:"PR-1TUB/1CASE-MB",  ev:{micro:"mixed_berry_2af1e2eb-ce90-4811-80f2-3d3c9c266acc.png?v=1773745403"}},
+ {c:"pr-hj",  n:"โฮจิฉะ",                       sku:"PR-1TUB/1CASE-HJ",  ev:{label:"hojicha_681d59c5-c538-4f77-8ab2-8db5ebac6455.png?v=1773744847"}},
+ {c:"pr-gm",  n:"เก็นไมฉะ",                     sku:"PR-1TUB/1CASE-GM",  ev:{label:"genmaicha_f93d647d-87b7-4d6c-a17b-cf3a6c8990c0.png?v=1773744847"}},
+ {c:"pr-tt",  n:"ชาไทย",                        sku:"PR-1CASE-TT",       ev:{label:"thai_tea.png?v=1773744847"}},
+ {c:"pr-cof", n:"กาแฟ",                         sku:"PR-1CASE-COF",      ev:{label:"coffee_0ef00254-a670-4a50-b96a-3b577869726c.png?v=1773744847"}},
+ {c:"pr-ncp", n:"นมชมพู",                       sku:"PR-1TUB/1CASE-NCP", ev:{label:"nom_chompooh.png?v=1773744847"}},
+ {c:"pr-bss", n:"งาดำ",                         sku:"PR-1TUB/1CASE-BSS", ev:{label:"sesame.png?v=1773744847"}},
+ {c:"pr-e",   n:"ชาเอิร์ลเกรย์",                sku:"PR-1TUB/1CASE-E",   ev:{}},
+ {c:"pr-p",   n:"วานิลลาอัญชัน",                sku:"PR-1TUB/1CASE-P",   ev:{}},
+ {c:"clr-tf", n:"Clear Creatine+ ทรอปิคอล ยูซุ", sku:"PR-CREATINE-PT-TF-W1", ev:{heavy:"heavy-yuzu.png?v=1787199980", amino:"amino-yuzu.png?v=1787199981"}},
+ {c:"clr-k",  n:"Clear Creatine+ คอมบูฉะ",       sku:"PR-CREATINE-PT-K-W1",  ev:{heavy:"heavy-kombucha.png?v=1787199980", amino:"amino-kombucha_b8bb8ad6-e56f-40ab-8eaa-51efdb68aa90.png?v=1787209333"}},
+ {c:"clr-kg", n:"Clear Creatine+ องุ่นเคียวโฮ",  sku:"PR-CREATINE-PT-KG-W1", ev:{heavy:"heavy-kyoho.png?v=1787199980", amino:"amino-kyoho.png?v=1787199981"}}
+];
+
+/* which source article each test image came from, per product family */
+function srcFor(code, test){
+  if(code.indexOf("clr-")===0) return test==="micro" ? SRC.creatine : SRC.clear;
+  if(test==="label") return SRC.flagship;
+  if(test==="heavy") return SRC.heavy;
+  if(test==="micro") return SRC.micro;
+  return SRC.flagship;
+}
+
+/* the full gallery, grouped by test */
+var GAL = {
+  label: {ttl:"โปรตีนตรงฉลาก", src:SRC.flagship, items:[
+    ["soy_free.png?v=1773744847","Soy-Free"],["nom_chompooh.png?v=1773744847","นมชมพู"],
+    ["hojicha_681d59c5-c538-4f77-8ab2-8db5ebac6455.png?v=1773744847","โฮจิฉะ"],
+    ["thai_tea.png?v=1773744847","ชาไทย"],["choc_malt.png?v=1773744847","ช็อกโกแลตมอลต์"],
+    ["coffee_0ef00254-a670-4a50-b96a-3b577869726c.png?v=1773744847","กาแฟ"],
+    ["original_oat.png?v=1773744846","ออริจินอล โอ๊ต"],
+    ["genmaicha_f93d647d-87b7-4d6c-a17b-cf3a6c8990c0.png?v=1773744847","เก็นไมฉะ"],
+    ["matcha_3b81e17c-77a2-4413-92d3-df56eaa9f2c9.png?v=1773744846","มัทฉะ"],
+    ["allergen.png?v=1773744847","Allergen-Free"],
+    ["original_b9b79fe7-96ba-465d-8c73-831c101bf50d.png?v=1773744847","ออริจินอล"],
+    ["cacao_429a9711-6f4b-4152-b6b8-d3484e6bc0c7.png?v=1773744846","พรีเมียมคาเคา"],
+    ["classic.png?v=1773744847","Classic"],["sesame.png?v=1773744847","งาดำ"],
+    ["protein_crunch.png?v=1773744847","Protein Crunch"],
+    ["crunch_original.png?v=1773744846","Crunch Original"],
+    ["boost_powder.png?v=1773744846","Boost Powder"]
+  ]},
+  heavy: {ttl:"ไร้โลหะหนัก", src:SRC.heavy, items:[
+    ["heavy-metal-not-found_cover.png?v=1764236843","ภาพรวมผลตรวจ"],
+    ["original-allergen.png?v=1764236874","ออริจินอล Allergen-Free"],
+    ["original-oat.png?v=1764236890","ออริจินอล โอ๊ต"],
+    ["heavy-yuzu.png?v=1787199980","Clear Creatine+ ยูซุ"],
+    ["heavy-kombucha.png?v=1787199980","Clear Creatine+ คอมบูฉะ"],
+    ["heavy-kyoho.png?v=1787199980","Clear Creatine+ เคียวโฮ"]
+  ]},
+  micro: {ttl:"ไร้จุลินทรีย์ก่อโรค", src:SRC.micro, items:[
+    ["01-27.png?v=1773745365","ภาพรวมผลตรวจ"],["soy_free.png?v=1773744847","Soy-Free"],
+    ["matcha_3b976900-d452-4838-80a8-640d9aad143e.png?v=1773745403","มัทฉะ"],
+    ["allergen.png?v=1773744847","Allergen-Free"],
+    ["mixed_berry_2af1e2eb-ce90-4811-80f2-3d3c9c266acc.png?v=1773745403","มิกซ์เบอร์รี่"],
+    ["classic.png?v=1773744847","Classic"],["dark_choc.png?v=1773745403","ดาร์กช็อกโกแลต"]
+  ]},
+  amino: {ttl:"กรดอะมิโน / NO Amino Spiking", src:SRC.clear, items:[
+    ["amino-yuzu.png?v=1787199981","ยูซุ"],
+    ["amino-kombucha_b8bb8ad6-e56f-40ab-8eaa-51efdb68aa90.png?v=1787209333","คอมบูฉะ"],
+    ["amino-kyoho.png?v=1787199981","เคียวโฮ"]
+  ]}
+};
+
+/* ---------- render ---------- */
+var $ = function(id){ return document.getElementById(id); };
+
+function currentCode(){
+  var q = new URLSearchParams(location.search).get("p");
+  if(q && P.filter(function(x){return x.c===q;}).length) return q;
+  return "pr-cm";
+}
+
+function render(code){
+  var p = P.filter(function(x){return x.c===code;})[0];
+  $("prodName").textContent = p.n;
+  $("prodSku").textContent  = p.sku + "  ·  " + p.c;
+  $("simurl").textContent   = "v.prooveclub.com/" + p.c + "  →  /pages/verified?p=" + p.c;
+  $("sim").value = code;
+  history.replaceState(null,"","?p="+code);
+
+  var order = ["label","heavy","micro","amino"];
+  var out = "";
+  var have = 0;
+  order.forEach(function(t){
+    var img = p.ev[t];
+    if(t==="amino" && code.indexOf("clr-")!==0 && !img) return;   /* amino only applies to Clear */
+    var T = TEST[t];
+    if(img){
+      have++;
+      var s = srcFor(code,t);
+      out += '<div class="ev anchor" data-a="ev-'+t+'">'
+        + '<div class="ev-top"><div class="ev-ico">'+T.ico+'</div><div>'
+        + '<div class="ev-ttl">'+T.ttl+'</div><div class="ev-sub">'+T.sub+'</div>'
+        + '<span class="res ok">✓ '+T.res+'</span></div></div>'
+        + '<div class="ev-meta"><dl>'
+        + '<dt>ห้องแล็บ</dt><dd><span class="res tbc" style="margin:0;padding:2px 8px;font-size:11px">ต้องยืนยันกับ R&amp;D</span></dd>'
+        + '<dt>เผยแพร่</dt><dd>'+s.d+'</dd>'
+        + '<dt>ที่มา</dt><dd><a href="'+s.url+'" target="_blank" rel="noopener">'+s.t+'</a></dd>'
+        + '<dt>ไฟล์ต้นฉบับ</dt><dd><span class="res tbc" style="margin:0;padding:2px 8px;font-size:11px">ยังไม่มี PDF</span></dd>'
+        + '</dl></div>'
+        + '<div class="ev-img"><img loading="lazy" src="'+CDN+img+'" alt="'+T.ttl+' '+p.n+'"></div>'
+        + '<button class="ev-open" data-img="'+CDN+img+'" data-cap="'+T.ttl+' — '+p.n+'">ดูผลตรวจแบบเต็ม</button>'
+        + '</div>';
+    } else {
+      out += '<div class="ev miss anchor" data-a="ev-'+t+'"><div class="ev-top">'
+        + '<div class="ev-ico" style="background:#F4E3E0">'+T.ico+'</div><div>'
+        + '<div class="ev-ttl">'+T.ttl+'</div><div class="ev-sub">'+T.sub+'</div>'
+        + '<span class="res none">ยังไม่มีผลตรวจเฉพาะรสนี้</span></div></div>'
+        + '<div class="ev-meta">ผลตรวจที่เผยแพร่อยู่ไม่ครอบคลุมรสชาตินี้ — ต้องขอจาก R&amp;D หรือแสดงผลตรวจระดับสูตร (series) แทน</div></div>';
+    }
+  });
+  if(have===0){
+    out = '<div class="ev miss anchor" data-a="ev-none"><div class="ev-top">'
+      + '<div class="ev-ico" style="background:#F4E3E0">⚠️</div><div>'
+      + '<div class="ev-ttl">ยังไม่มีผลตรวจสำหรับรสนี้เลย</div>'
+      + '<div class="ev-sub">QR บนแพ็กเกจรสนี้จะพาผู้บริโภคมาเจอหน้าว่าง</div>'
+      + '<span class="res none">ต้องตัดสินใจก่อนพิมพ์สติกเกอร์</span></div></div>'
+      + '<div class="ev-meta">ทางเลือก — (1) ขอผลตรวจรสนี้จาก R&amp;D (2) แสดงผลตรวจระดับสูตรแทนรสชาติ (3) ยังไม่ติด QR บนรสนี้ในรอบพิมพ์แรก</div></div>' + out;
+  }
+  $("evidence").innerHTML = out;
+  bindAnchors();
+  paintNotes();
+}
+
+/* gallery */
+var galKey = "label";
+function paintGal(){
+  var g = GAL[galKey];
+  $("chips").innerHTML = Object.keys(GAL).map(function(k){
+    return '<button class="chip'+(k===galKey?' on':'')+'" data-k="'+k+'">'+GAL[k].ttl+'</button>';
+  }).join("");
+  $("gal").innerHTML = g.items.map(function(it){
+    return '<figure><img loading="lazy" src="'+CDN+it[0]+'" alt="'+it[1]+'">'
+      + '<figcaption>'+it[1]+'<br><span style="opacity:.65">'+g.src.d+'</span></figcaption></figure>';
+  }).join("");
+  Array.prototype.forEach.call($("chips").children, function(b){
+    b.onclick = function(){ galKey = b.dataset.k; paintGal(); };
+  });
+  Array.prototype.forEach.call($("gal").querySelectorAll("img"), function(im){
+    im.onclick = function(){ openLB(im.src, im.alt); };
+  });
+}
+
+/* lightbox */
+function openLB(src,cap){ $("lbimg").src=src; $("lbcap").textContent=cap||""; $("lb").classList.add("on"); }
+$("lbx").onclick = function(){ $("lb").classList.remove("on"); };
+$("lb").onclick = function(e){ if(e.target===$("lb")) $("lb").classList.remove("on"); };
+document.addEventListener("click", function(e){
+  var b = e.target.closest && e.target.closest(".ev-open");
+  if(b) openLB(b.dataset.img, b.dataset.cap);
+});
+
+/* ---------- comment layer ---------- */
+var KEY = "proove-verified-notes-v1";
+var notes = [];
+try{ notes = JSON.parse(localStorage.getItem(KEY) || "[]"); }catch(e){ notes = []; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(notes)); }catch(e){} paintNotes(); }
+
+var LABELS = {
+  "evidence-head":"หัวข้อ: หลักฐานที่ยืนยันฉลาก","ev-label":"การ์ด: โปรตีนตรงฉลาก",
+  "ev-heavy":"การ์ด: ไร้โลหะหนัก","ev-micro":"การ์ด: ไร้จุลินทรีย์","ev-amino":"การ์ด: กรดอะมิโน",
+  "ev-none":"การ์ด: ไม่มีผลตรวจ","fda":"ส่วน: เลขจดแจ้ง อย.","labs":"ส่วน: ห้องแล็บที่ตรวจ",
+  "explain":"ส่วน: โปรตีนตกฉลากคืออะไร","all":"ส่วน: คลังผลตรวจ","badges":"ส่วน: มาตรฐานการผลิต",
+  "general":"ความเห็นรวม"
+};
+function labelOf(a){ return LABELS[a] || a; }
+
+var cmode = false;
+$("cbtn").onclick = function(){
+  if(!cmode){ cmode = true; document.body.classList.add("cmode"); openPanel("list"); }
+  else { openPanel("list"); }
+};
+$("panelClose").onclick = function(){ $("panel").classList.remove("on"); };
+
+function bindAnchors(){
+  Array.prototype.forEach.call(document.querySelectorAll(".anchor"), function(el){
+    el.onclick = function(e){
+      if(!cmode) return;
+      e.preventDefault(); e.stopPropagation();
+      openPanel("add", el.dataset.a);
+    };
+  });
+}
+
+function openPanel(mode, anchor){
+  var b = $("panelBody");
+  if(mode === "add"){
+    $("panelTitle").textContent = labelOf(anchor);
+    b.innerHTML = '<textarea id="ta" placeholder="เขียนความเห็นตรงนี้ เช่น อยากให้ย้ายส่วนนี้ขึ้นบน / คำนี้ควรใช้คำว่า…"></textarea>'
+      + '<button class="pbtn pri" id="addb">บันทึกความเห็น</button>'
+      + '<button class="pbtn ghost" id="backb">ดูความเห็นทั้งหมด</button>';
+    $("ta").focus();
+    $("addb").onclick = function(){
+      var v = $("ta").value.trim();
+      if(v){ notes.push({a:anchor, t:v, at:new Date().toISOString(), p:currentCode()}); save(); }
+      openPanel("list");
+    };
+    $("backb").onclick = function(){ openPanel("list"); };
+  } else {
+    $("panelTitle").textContent = "ความเห็นทั้งหมด (" + notes.length + ")";
+    var list = notes.length
+      ? notes.map(function(n,i){
+          return '<div class="note"><div class="where">'+labelOf(n.a)+' · '+n.p+'</div>'
+            + '<div class="txt">'+n.t.replace(/</g,"&lt;")+'</div>'
+            + '<button class="del" data-i="'+i+'">ลบ</button></div>';
+        }).join("")
+      : '<div class="empty">ยังไม่มีความเห็น<br>แตะที่ส่วนไหนก็ได้บนหน้าเว็บเพื่อเพิ่มความเห็น</div>';
+    b.innerHTML = list
+      + '<button class="pbtn sec" id="genb">＋ เพิ่มความเห็นรวม</button>'
+      + '<button class="pbtn pri" id="copyb">คัดลอกความเห็นทั้งหมด</button>'
+      + '<button class="pbtn ghost" id="offb">ออกจากโหมดคอมเมนต์</button>';
+    Array.prototype.forEach.call(b.querySelectorAll(".del"), function(d){
+      d.onclick = function(){ notes.splice(+d.dataset.i,1); save(); openPanel("list"); };
+    });
+    $("genb").onclick = function(){ openPanel("add","general"); };
+    $("offb").onclick = function(){ cmode=false; document.body.classList.remove("cmode"); $("panel").classList.remove("on"); };
+    $("copyb").onclick = function(){
+      var txt = "ความเห็นหน้า Proove Verified (ร่าง)\n" + new Date().toLocaleString("th-TH") + "\n\n"
+        + notes.map(function(n,i){ return (i+1)+". ["+labelOf(n.a)+" · "+n.p+"]\n   "+n.t; }).join("\n\n");
+      var done = function(){ $("copyb").textContent = "คัดลอกแล้ว ✓ วางในแชทได้เลย"; setTimeout(function(){ $("copyb").textContent="คัดลอกความเห็นทั้งหมด"; },2600); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, fallback); }
+      else fallback();
+      function fallback(){
+        var ta = document.createElement("textarea");
+        ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand("copy"); done(); }catch(e){ alert(txt); }
+        document.body.removeChild(ta);
+      }
+    };
+  }
+  $("panel").classList.add("on");
+}
+
+function paintNotes(){
+  $("cn").textContent = notes.length;
+  Array.prototype.forEach.call(document.querySelectorAll(".anchor"), function(el){
+    el.classList.toggle("has", notes.some(function(n){ return n.a === el.dataset.a; }));
+  });
+}
+
+/* ---------- boot ---------- */
+$("sim").innerHTML = P.map(function(p){
+  var n = Object.keys(p.ev).length;
+  return '<option value="'+p.c+'">'+p.n+'  ('+p.c+') — ผลตรวจ '+n+' รายการ</option>';
+}).join("");
+$("sim").onchange = function(){ render(this.value); window.scrollTo({top:0,behavior:"smooth"}); };
+
+paintGal();
+render(currentCode());
+</script>
+</body>
+</html>
