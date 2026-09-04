@@ -43,6 +43,7 @@ body{background:#fff;color:var(--ink);font-family:var(--f-en);font-size:16px;lin
 h1,h2,h3,h4,p,a,li{font-family:var(--f-th)}
 h1,h2,h3,h4{line-height:1.35;font-weight:600}
 .en{font-family:var(--f-en)}
+.nb{white-space:nowrap}
 img{max-width:100%;display:block;border-radius:var(--media-radius)}
 a{color:var(--green-2)}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
@@ -84,7 +85,7 @@ header.site .icons{display:flex;gap:16px;font-size:17px;color:var(--ink)}
 .hero .mark{position:absolute;left:-30px;top:-40px;font-family:var(--f-en);font-weight:700;font-size:230px;line-height:1;letter-spacing:-.08em;color:rgba(255,255,255,.07);pointer-events:none;user-select:none}
 .hero .inner{position:relative;z-index:1;max-width:var(--page);margin:0 auto;padding:34px 20px 30px}
 .hero .kick{font-family:var(--f-en);font-size:12px;font-weight:700;letter-spacing:.2em;color:#fff;opacity:.85}
-.hero h1{font-size:clamp(28px,7.4vw,40px);color:#fff;margin:9px 0 0;font-weight:600}
+.hero h1{font-size:clamp(25px,6.6vw,34px);color:#fff;margin:9px 0 0;font-weight:600}
 .hero .lead{font-size:15px;color:rgba(255,255,255,.9);margin-top:12px;max-width:46ch;margin-left:auto;margin-right:auto}
 .hero .tag{font-family:var(--f-en);font-size:13px;color:rgba(255,255,255,.75);margin-top:16px;font-style:italic}
 .heroR{margin-top:18px}
@@ -210,7 +211,7 @@ body.cmode .anchor::after{content:"＋ คอมเมนต์";position:absolu
   .hero .inner{padding:62px 32px 56px;display:grid;grid-template-columns:1.35fr .65fr;
                gap:40px;align-items:center;text-align:left}
   .hero .mark{font-size:340px;left:-50px;top:-70px}
-  .hero h1{font-size:44px}
+  .hero h1{font-size:38px;max-width:20ch}
   .hero .lead{margin-left:0;margin-right:0;font-size:16.5px}
   .hero .tag{margin-top:18px}
   .hero .prodbox{margin-top:0;align-self:stretch;display:flex;flex-direction:column;
@@ -238,7 +239,7 @@ body.cmode .anchor::after{content:"＋ คอมเมนต์";position:absolu
   .gal{grid-template-columns:repeat(4,1fr);gap:16px}
   section{padding:68px 0}
   .hero .inner{padding:78px 32px 70px}
-  .hero h1{font-size:52px}
+  .hero h1{font-size:46px}
   .sec-p{font-size:15.5px;max-width:78ch}
   .ev-h{padding:20px 20px 16px}
   .ev-h .t{font-size:20px}
@@ -286,9 +287,8 @@ body.cmode .anchor::after{content:"＋ คอมเมนต์";position:absolu
   <div class="inner">
     <div class="heroL">
       <span class="kick" data-src="CAMPAIGN">PROOVE VERIFIED</span>
-      <h1 data-src="VOID-DRAFT">เราไม่สัญญา เราพิสูจน์</h1>
-      <p class="lead" data-src="VOID-DRAFT">Trusted &amp; Science-backed nutrition — ทุกตัวเลขบนฉลากของเรา ตรวจสอบได้ที่หน้านี้</p>
-      <p class="tag en" data-src="SITE">We don't promise, we proove.</p>
+      <h1 data-src="A5"><span class="nb">เราไม่แค่บอก</span> <span class="nb">แต่เรา</span> <span class="nb">พูดจริง</span> <span class="nb">ใส่จริง</span> <span class="nb">ตรวจสอบได้จริง</span></h1>
+      <p class="tag en" data-src="SITE">We don't promise, we PROOVE</p>
     </div>
     <div class="heroR">
       <div class="prodbox">
